@@ -1,7 +1,7 @@
 #include <iostream>
-#include <algorithm>
-#include <vector>
-#include <cmath>
+#include <algorithm> /*sort*/
+#include <vector> 
+#include <cmath> /*sqrt*/
 using namespace std;
 
 class Island // 岛屿类
@@ -30,8 +30,8 @@ int solve(const vector<Section> &s) // 算法实现
 {
     int res; // 需要的雷达数量
     double temp;
-    auto val = 0; // 用于做第一次处理
-    for (auto beg = s.begin(); beg != s.end(); ++beg)
+    int val = 0; // 用于做第一次处理
+    for (vector<Section>::const_iterator beg = s.begin(); beg != s.end(); ++beg)
     {
         if (val == 0) // 处理第一个区间
         {
@@ -82,23 +82,23 @@ int main()
         }
         if (err == -1)
         {
-            cout << "case " << count << ": -1" << endl;
+            cout << "Case " << count << ": -1" << endl;
         }
         else if (err == 0 && n > 0 && d > 0)
         {
-            for (auto i : v) // 对于每一个岛屿，将其在x轴上的投影区间存入section
+            for (vector<Island>::iterator beg=v.begin(); beg != v.end(); ++beg) // 对于每一个岛屿，将其在x轴上的投影区间存入section
             {
                 double l, r; // left,right
                 // 计算区间
-                double val = sqrt((d * d) - (i.Y * i.Y));
-                l = i.X - val;
-                r = i.X + val;
+                double val = sqrt((d * d) - ((*beg).Y * (*beg).Y));
+                l = (*beg).X - val;
+                r = (*beg).X + val;
                 Section s(l, r);
                 section.push_back(s);
             }
             sort(section.begin(), section.end()); // 将区间左端点从小到大排序
             int res = solve(section);
-            cout << "case " << count << ": " << res << endl;
+            cout << "Case " << count << ": " << res << endl;
         }
     } while (n > 0 && d > 0);
     return 0;
