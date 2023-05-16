@@ -73,7 +73,7 @@ int main()
         {
             double x, y;
             cin >> x >> y;
-            if (y > d) // 如果有任一y大于d，则无解, 令err=-1
+            if (y > d || y < 0 || d <= 0) // 如果有任一y大于d，则无解, 令err=-1
             {
                 err = -1;
             }
@@ -100,6 +100,6 @@ int main()
             int res = solve(section);
             cout << "Case " << count << ": " << res << endl;
         }
-    } while (n > 0 && d > 0);
+    } while (n != 0 || d != 0);
     return 0;
 }
